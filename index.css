@@ -1,0 +1,87 @@
+html {
+    margin: 0px;
+    height: 100%;
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    text-align: center;
+}
+img {
+    max-width: 70%;
+    height: auto;
+}
+body.lightmode {
+    background: linear-gradient(white, rgb(163, 163, 163));
+    color: black;
+}
+body.darkmode {
+    background: linear-gradient(rgb(39, 39, 39), rgb(20, 20, 20));
+    color: white;
+}
+.page-grid {
+    display: grid;
+    grid-template-columns: 7vw 86vw 7vw;
+    grid-template-rows: 100vh;
+    grid-template-areas: 
+        "blankspace container modetoggle";
+}
+.grid-margins {
+    margin-top: 30px;
+}
+.modetoggle {
+    grid-area: modetoggle;
+}
+.container {
+    grid-area: container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.blankspace {
+    grid-area: blankspace;
+}
+.footer {
+    padding: 30px;
+    color: white;
+    background-color:rgb(39, 39, 39);
+}
+.toggle-container {
+    display: flex;
+    width: 70px;
+    justify-content: space-between;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid gray;
+    padding: 8px 5px 5px;
+    align-items: center;
+}
+.toggle-container:hover {
+    cursor: pointer;
+}
+.game-container {
+    margin-top: 50px;
+    height: 80%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+}
+#lightmode,
+#darkmode.toggled {
+    opacity: 0;
+    transition: opacity 800ms ease-out;
+}
+#lightmode.toggled,
+#darkmode {
+    opacity: 1;
+}
+#page-header {
+    font-family: "AvenueX", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+@font-face {
+    font-family: "AvenueX";
+    src: url(./resources/AvenueX-Regular.otf);
+}
