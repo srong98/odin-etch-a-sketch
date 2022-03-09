@@ -49,7 +49,7 @@ drawingBox.addEventListener('mousedown', (e) => mouseClick = true);
 drawingBox.addEventListener('mouseup', (e) => mouseClick = false);
 
 function draw(e) {
-    if (!mouseClick) return;
+    if (!mouseClick && e.type ==='mouseover') return;
     e.target.style.backgroundColor = currentColor;
 }
 
@@ -58,6 +58,7 @@ function createDivEach(size) {
         const blockDiv = document.createElement('div');
         blockDiv.className ='gridBlock';
         blockDiv.addEventListener('mouseover', draw);
+        blockDiv.addEventListener('click', draw);
         drawingBox.appendChild(blockDiv);
     }
 }
