@@ -1,7 +1,11 @@
-const defaultSize = 48;
-const defaultColor = '#000000';
-let currentSize = defaultSize;
-let currentColor = defaultColor;
+const DEFAULT_SIZE = 48;
+const DEFAULT_COLOR = '#000000';
+
+
+let currentSize = DEFAULT_SIZE;
+let currentColor = DEFAULT_COLOR;
+let randomColorMode = false;
+let randomColorChoice;
 
 const toggleSwitch = document.getElementById('toggle');
 const sliderGrid = document.getElementById('penslider');
@@ -9,6 +13,7 @@ const colorChoice = document.getElementById('color-selection');
 const drawingBox = document.getElementById('drawing-box');
 const eraser = document.getElementById('eraser');
 const clearCanvas = document.getElementById('clear-canvas')
+const rainbowColor = document.getElementById('rainbow')
 
 toggleSwitch.addEventListener('click', toggleDarkMode);
 sliderGrid.addEventListener('input', updateCurrentSize);
@@ -16,6 +21,7 @@ sliderGrid.addEventListener('change', gridReload);
 colorChoice.addEventListener('input', updateCurrentColor);
 eraser.addEventListener('click', useEraser);
 clearCanvas.addEventListener('click', gridReload);
+rainbowColor.addEventListener('click', toggleRainbow);
 
 function toggleDarkMode() {
     const body = document.querySelector('body');
@@ -36,11 +42,35 @@ function updateCurrentSize() {
 
 function updateCurrentColor() {
     currentColor = colorChoice.value;
+    randomColorMode = false;
+    rainbowColor.classList.remove('active');
     return currentColor;
 }
 
 function useEraser() {
     currentColor = '#FFFFFF';
+    randomColorMode = false;
+    rainbowColor.classList.remove('active');
+    return currentColor;
+}
+
+function toggleRainbow() {
+    randomColorMode = !randomColorMode;
+    rainbowColor.classList.toggle('active');
+    return randomColorMode;
+}
+
+function randomColor() {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    randomColorChoice = `rgb(${red}, ${green}, ${blue})`;
+    return randomColorChoice;
+}
+
+function useRainbow() {
+    randomColor();
+    currentColor = randomColorChoice;
     return currentColor;
 }
 
@@ -50,8 +80,12 @@ drawingBox.addEventListener('mouseup', (e) => mouseClick = false);
 
 function draw(e) {
     if (!mouseClick && e.type ==='mouseover') return;
+    if (randomColorMode) {
+        useRainbow();
+        }
     e.target.style.backgroundColor = currentColor;
-}
+    
+}   
 
 function createDivEach(size) {
     for (let i = 0; i < (size ** 2); i++) {
@@ -78,7 +112,7 @@ function gridReload() {
 }
 
 window.onload = () => {
-    gridSetup(defaultSize);
-    createDivEach(defaultSize);
+    gridSetup(DEFAULT_SIZE);
+    createDivEach(DEFAULT_SIZE);
   }
   
